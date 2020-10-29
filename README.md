@@ -8,10 +8,16 @@ Clone the source code to a directory
 $ git clone https://github.com/jamielsharief/blockchain blockchain-demo
 ```
 
-Then run the demo file
+Run `composer install`
+
+```php
+$ cd blockchain-demo
+$ composer install
+```
+
+Then execute `demo.php`
 
 ```bash
-$ cd blockchain-demo
 $ php demo.php
 ```
 
