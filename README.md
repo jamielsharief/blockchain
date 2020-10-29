@@ -83,10 +83,30 @@ $blockchain->count();
 
 ## List
 
-To get a list of hashes of the most recent X `Blocks`
+To get a list of hashes of the most recent X `Blocks` with the `Block` number.
 
 ```php
 $list = $blockchain->list(); // defaults to 10
+/*
+Array
+(
+    [9] => 0000b08e7e34f3cafb35602123d3aa18416d2279d36ab702fa9feac8758f6f66
+    [8] => 0000963bc54ec3dba730e186bbddd03bf754117057b6d534a4c08610052b5c12
+    [7] => 0000e042bdd2208d8187d6166dfb2f4cc9851d8a256178460f9daab56224f9f2
+    [6] => 00008e61f6338138705ad6a389e0149e872c60839c5a638efc5cc44953c3820e
+    [5] => 00005d7994266b55b1c48ceb79f59bc5fe9d786ab672417a6abba2db3f47a558
+    [4] => 0000807d375c5fbe63f13445cec81abaf132eec8fb0f04bf7de8a68c29d173eb
+    [3] => 0000fb7f973b48a0a928f190c843820b4bb91ba305330f702035b8d4dc64003f
+    [2] => 000043adb9258af0b5b564e96ca20ed6709e4b3ebb84498d1a334b5a185cd788
+    [1] => 0000d14502ac90c9047f3f43c96678dc4329db98f9e94c775f72a27d54820e87
+    [0] => 0000a543c66f641c0998711f71afe2393ec3ed1b6ecefe979873f1ae4e5c15d2
+)
+*/
+```
+
+To list a custom amount of `Blocks`
+
+```php
 $list = $blockchain->list(10000);
 ```
 
