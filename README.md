@@ -12,7 +12,7 @@ Run `composer install`
 
 ```php
 $ cd blockchain-demo
-$ composer install
+$ composer install --no-dev
 ```
 
 Then execute `demo.php`
