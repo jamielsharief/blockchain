@@ -40,7 +40,6 @@ for ($i = 0;$i < $blocks;$i++) {
     $blockchain->insert($block);
     print("Added Block #{$block->index} with hash {$block->hash}\n");
 }
-print("\nThere are {$blockchain->count()} Blocks in the Blockchain\n");
 
 print("\nLast Block:\n");
 
@@ -53,3 +52,6 @@ foreach ($blockchain->all(['reverse' => false]) as $block) {
     print("Block #{$block->index}\n");
     print($block->toJson() . "\n");
 }
+
+print("\nThere are {$blockchain->count()} Blocks in the Blockchain\n");
+print("\nBlockchain is " . ($blockchain->isValid() ? 'valid' : 'not valid'));
