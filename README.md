@@ -59,7 +59,42 @@ To get a `Block` provide the block number
 
 ```php
 $block = $blockchain->get(1000);
+/*
+{
+    "hash": "00006987cc97001e245c205736f7d6ff119534b63e7a4d8cc7baddafe0a1ae7f",
+    "version": 1,
+    "previousHash": null,
+    "merkleRoot": "23536b395fab46d065d4aa502764d7cc3a704790fd0b617977fa911aff01ec45",
+    "timestamp": 1603987204,
+    "difficulty": 4,
+    "nonce": 50298,
+    "index": 0,
+    "noTransactions": 2,
+    "transactions": [
+        {
+            "hash": "ffccf21d35ea99881f9ec4ea5832ad45e3862b5b77aa8ae340b999226ea38b4b",
+            "data": {
+                "date": "2020-10-30 05:00:04",
+                "to": "40d5907303f464918b11d13df82814be4e9856a8",
+                "from": "56ed648d6fb6955cb5dedd0f4763ca952e7eec30",
+                "amount": 36687
+            }
+        },
+        {
+            "hash": "31bfb9245c4871e00b4ddd0999d4f137fd9a45e9788ec68667fb7fcaa4806e5e",
+            "data": {
+                "date": "2020-10-30 14:00:04",
+                "to": "65b609b0e8cb91dec8fbc35fd39586875f987cb1",
+                "from": "55367374bd2cec06b6295514e51a40e5ce9265b6",
+                "amount": 49260
+            }
+        }
+    ]
+}
+*/
 ```
+
+
 
 You can also search by hash
 
