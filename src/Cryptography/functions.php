@@ -16,8 +16,8 @@ namespace Blockchain\Cryptography;
 /**
  * Double SHA-256 hashing
  *
- * It is belived that Bitcoin uses double hashing to prevent
- * against
+ * @internal It is belived that Bitcoin uses double hashing to prevent
+ * against the Length extension attack
  *
  * @link https://en.bitcoin.it/wiki/Protocol_documentation
  * @link https://en.wikipedia.org/wiki/Length_extension_attack
