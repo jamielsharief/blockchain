@@ -65,7 +65,7 @@ class Index
     {
         $out = [];
 
-        foreach ($this->fs->each($this->path, $amount)  as $line) {
+        foreach ($this->fs->each($this->path, $amount) as $line) {
             list($index, $hash) = explode(',', $line);
             $out[$index] = $hash;
         }
@@ -82,7 +82,7 @@ class Index
     public function search(string $hash): ?int
     {
         // Search the most recent X records first due to recency basis
-        foreach ($this->fs->each($this->path, $this->recentRecords)  as $line) {
+        foreach ($this->fs->each($this->path, $this->recentRecords) as $line) {
             if (strpos($line, $hash) !== false) {
                 list($index, $hash) = explode(',', $line);
 
