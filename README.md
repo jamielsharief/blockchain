@@ -28,9 +28,12 @@ To create a `Blockchain` instance, provide a path to where data for that Blockch
 ```php
 $blockchain = new Blockchain('customer-payments',__DIR__ . '/data/payments', [
     'difficulty' => 4, // set to 0 to disable proof of work
+    'lookback' => 10, // number of Blocks to look back for duplicate transactions
     'version' => 1
 ]);
 ```
+
+> For a private Blockchain, set difficulty to 0, since no proof of work is required.
 
 The Blockchain is created when you add the first `Block` of `Transactions`.
 
@@ -153,7 +156,7 @@ $list = $blockchain->list(10000);
 
 ## All
 
-To go through all `Blocks` in the `Blockchain`
+To go through all `Blocks` in the `Blockchain`, use the `all` method which yeilds each `Block` so that it can be done in a memory efficient manner.
 
 ```php
 foreach($blockchain->all() as $block){
