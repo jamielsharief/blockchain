@@ -49,7 +49,7 @@ class Blockchain
     {
         $options += ['difficulty' => 8, 'version' => 1,'lookback' => 25];
 
-        if (! preg_match('/^[a-z0-9-]*$/i', $name)) {
+        if (! preg_match('/^[a-z0-9-]+$/i', $name)) {
             throw new InvalidArgumentException('Invalid Blockchain name');
         }
         $this->name = $name;
@@ -76,7 +76,10 @@ class Blockchain
         $this->exists = mkdir($this->path, 0775, true);
         
         $block(
-            0, '0000000000000000000000000000000000000000000000000000000000000000', $this->difficulty, $this->version
+            0,
+            '0000000000000000000000000000000000000000000000000000000000000000',
+            $this->difficulty,
+            $this->version
         );
 
         $this->mine($block);
