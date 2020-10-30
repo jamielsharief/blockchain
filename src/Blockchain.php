@@ -256,14 +256,14 @@ class Blockchain
         return $this->exists($block->index);
     }
     /**
-     * Checks if the Blockchain is valid
+     * Runs through the whole Blockchain validating each Block and its transactions.
      *
      * @internal on my MacBook 2012 , it took approx 9 minutes to validate a Blockchain
      * with 1,294,691 Blocks.
      *
      * @return boolean
      */
-    public function isValid(): bool
+    public function validate(): bool
     {
         $blocks = $this->count();
         $previousBlock = $this->fetch(0);

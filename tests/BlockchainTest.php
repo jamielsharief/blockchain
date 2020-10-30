@@ -184,7 +184,7 @@ class BlockchainTest extends TestCase
     public function testValidates()
     {
         $blockchain = $this->createBlockchain(5);
-        $this->assertTrue($blockchain->isValid());
+        $this->assertTrue($blockchain->validate());
     }
 
     public function testValidatesThisBlockModified()
@@ -201,7 +201,7 @@ class BlockchainTest extends TestCase
         $block->previousHash = 'something-else';
         file_put_contents($path, $block->toJson());
 
-        $this->assertFalse($blockchain->isValid());
+        $this->assertFalse($blockchain->validate());
     }
 
     public function testValidatesLastBlockModified()
@@ -220,7 +220,7 @@ class BlockchainTest extends TestCase
         $block->hash = $block->calculateHash();
      
         file_put_contents($path, $block->toJson());
-        $this->assertFalse($blockchain->isValid());
+        $this->assertFalse($blockchain->validate());
     }
 
     public function testValidatesTransactionsBeenTamperedWith()
@@ -236,7 +236,7 @@ class BlockchainTest extends TestCase
         $block->transactions[0]->data['amount'] = 123456789.99;
 
         file_put_contents($path, $block->toJson());
-        $this->assertFalse($blockchain->isValid());
+        $this->assertFalse($blockchain->validate());
     }
 
     public function testDuplicateTransactions()

@@ -174,8 +174,8 @@ The following options can be used
 
 > On my 2012 Mac Book it took me approx 9 minutes to validate a Blockchain with 1.2 million Blocks and roughly 6 million Transactions.
 
-To validate the `Blockchain`
+To validate the entire `Blockchain`.
 
 ```php
-$isValid = $blockchain->isValid();
+$blockchain->validate();
 ```
