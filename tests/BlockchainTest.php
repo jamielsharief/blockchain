@@ -198,9 +198,12 @@ class BlockchainTest extends TestCase
          * Modify the "previousHash" value IN THIS Block
          */
         $block = Block::deserialize(file_get_contents($path));
-        $block->previousHash = 'something-else';
-        file_put_contents($path, $block->toJson());
 
+        $this->assertTrue($block->isValid());
+        $block->previousHash = 'something-else';
+        $this->assertFalse($block->isValid());
+
+        file_put_contents($path, $block->toJson());
         $this->assertFalse($blockchain->validate());
     }
 
@@ -218,8 +221,15 @@ class BlockchainTest extends TestCase
 
         $block->previousHash = 'something-else';
         $block->hash = $block->calculateHash();
-     
+        $this->assertTrue($block->isValid());
+
         file_put_contents($path, $block->toJson());
+
+        // Validate both bocks hashes are valid
+        $this->assertTrue($blockchain->get(3)->isValid());
+        $this->assertTrue($blockchain->get(4)->isValid());
+
+        // Validate that the chain has been broken as now block4->previous hash does not match $block3->hash
         $this->assertFalse($blockchain->validate());
     }
 
