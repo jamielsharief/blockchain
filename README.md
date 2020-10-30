@@ -185,3 +185,4 @@ $blockchain->validate();
 
 - [Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
 - [Block hashing algorithm](https://en.bitcoin.it/wiki/Block_hashing_algorithm)
+- [Merkle Trees](https://en.bitcoin.it/wiki/Protocol_documentation#Merkle_Trees)
