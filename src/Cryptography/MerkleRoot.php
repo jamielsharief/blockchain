@@ -50,7 +50,7 @@ class MerkleRoot
         }
 
         //  If the number of hashes is uneven then use last element to make even
-        if (count($hashList) % 2 != 0) {
+        if (count($hashList) % 2 !== 0) {
             $hashList[] = end($hashList);
         }
 
