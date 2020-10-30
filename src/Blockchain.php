@@ -228,7 +228,7 @@ class Blockchain
     /**
      * Inserts a new Block into the Blockchain
      *
-     * @param Block $block
+     * @param \Blockchain\Block $block
      * @return bool
      */
     public function insert(Block $block): bool
@@ -306,7 +306,7 @@ class Blockchain
      * Check if any of the Transactions submitted in the Block exist
      * in the last X Blocks
      *
-     * @param Block $block
+     * @param \Blockchain\Block $block
      * @return boolean
      */
     protected function hasDuplicateTransactions(Block $block)
@@ -335,7 +335,7 @@ class Blockchain
     /**
      * Writes the Block to disk
      *
-     * @param Block $block
+     * @param \Blockchain\Block $block
      * @return void
      */
     protected function writeBlock(Block $block): void

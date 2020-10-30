@@ -31,7 +31,7 @@ class Index
     /**
      * Adds a Block to the Index
      *
-     * @param Block $block
+     * @param \Blockchain\Block $block
      * @return void
      */
     public function add(Block $block): void
