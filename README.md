@@ -6,11 +6,11 @@ A Blockchain database suitable for both private or public blockchains.
 - Database has been designed to handle large amounts of Blocks and can be quickly synced across multiple servers
 - Transactions are encoded in a Merkle Tree, and can detect duplicate transactions being submitted in different blocks.
 - Proof of work can be disabled for private blockchains to remove unnecessary and cumbersome calculations
-- It is very fast, you can search for the furthest away hash in the index of 1.2 million blocks in 0.37 seconds (2012 laptop)
+- It is very fast, you can search for the furthest away hash in the index of 2 million blocks in 0.44 seconds (2012 laptop)
 
-## Getting started
+## Trying it out
 
-I will be creating a package soon and have included `demo.php` which will create a `Blockchain` with `Blocks` and `Transactions`
+I have included `demo.php` which will create a `Blockchain` with `Blocks` and `Transactions`
 
 Clone the source code to a directory
 
@@ -25,7 +25,7 @@ $ cd blockchain-demo
 $ composer install --no-dev
 ```
 
-Then execute `demo.php`
+Then run the demo script
 
 ```bash
 $ php demo.php
