@@ -75,12 +75,9 @@ class Blockchain
     {
         $this->exists = mkdir($this->path, 0775, true);
         
-        $block([
-            'index' => 0,
-            'difficulty' => $this->difficulty,
-            'version' => $this->version,
-            'previousHash' => '0000000000000000000000000000000000000000000000000000000000000000'
-        ]);
+        $block(
+            0, '0000000000000000000000000000000000000000000000000000000000000000', $this->difficulty, $this->version
+        );
 
         $this->mine($block);
         $this->writeBlock($block);
@@ -243,13 +240,10 @@ class Blockchain
 
         $previousBlock = $this->last();
 
-        $block([
-            'index' => $previousBlock->index + 1,
-            'difficulty' => $this->difficulty,
-            'version' => $this->version,
-            'previousHash' => $previousBlock->hash
-        ]);
-
+        $block(
+            $previousBlock->index + 1, $previousBlock->hash, $this->difficulty, $this->version
+        );
+     
         $this->mine($block);
         $this->writeBlock($block);
 

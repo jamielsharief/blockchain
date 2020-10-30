@@ -107,7 +107,7 @@ class BlockTest extends TestCase
         $block = new Block();
         $block->add($transaction);
 
-        $block(); // Invoke for use
+        $block(0, '0000000000000000000000000000000000000000000000000000000000000000', 4, 1); // Invoke for use
 
         $this->assertTrue($block->isValid());
 

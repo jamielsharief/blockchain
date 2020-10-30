@@ -93,14 +93,12 @@ class Block
      * @param array $options
      * @return void
      */
-    public function __invoke(array $options = [])
+    public function __invoke(int $index, string $previousHash, int $difficulty, int $version)
     {
-        $options += ['index' => 0, 'difficulty' => 4, 'version' => 1, 'previousHash' => null];
-
-        $this->index = $options['index'];
-        $this->previousHash = $options['previousHash'];
-        $this->difficulty = $options['difficulty'];
-        $this->version = $options['version'];
+        $this->index = $index;
+        $this->previousHash = $previousHash;
+        $this->difficulty = $difficulty;
+        $this->version = $version;
 
         $this->timestamp = time();
 
