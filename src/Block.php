@@ -202,6 +202,14 @@ class Block
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+
+    /**
      * Converts the Transaction Objects into Arrays
      *
      * @param array $transcations
