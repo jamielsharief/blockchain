@@ -18,9 +18,13 @@ $blocks = 5;
 // the proof of work (if not needed, then set to 0)
 $difficulty = 4;
 
+// the number of blocks to look back at to see if there are duplicate transactions
+$lookback = 10;  // set to 0 if you want to speed up generating test Blocks
+
 // Create the instance
 $blockchain = new Blockchain('demo-coin', $path, [
-    'difficulty' => $difficulty
+    'difficulty' => $difficulty,
+    'lookback' => $lookback
 ]);
 
 // Insert Blocks
