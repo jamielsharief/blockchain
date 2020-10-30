@@ -1,5 +1,16 @@
 # Blockchain (beta)
 
+A Blockchain database suitable for both private or public blockchains.
+
+- Blocks are stored with transactions as JSON so they are very portable
+- Its fast, can search for the furthest away hash in the index of 1.2 million blocks in 0.37 seconds on my 2012 laptop.
+- Database has been designed to handle large amounts of Blocks and can be quickly synced across multiple servers
+- Transactions are encoded in a Merkle Tree, and can detect duplicate transactions being submitted in different blocks.
+- Proof of work can be disabled for private blockchains to remove unnecessary and cumbersome calculations
+
+
+## Getting started
+
 I will be creating a package soon and have included `demo.php` which will create a `Blockchain` with `Blocks` and `Transactions`
 
 Clone the source code to a directory
