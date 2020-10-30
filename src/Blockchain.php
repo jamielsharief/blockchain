@@ -79,7 +79,7 @@ class Blockchain
             'index' => 0,
             'difficulty' => $this->difficulty,
             'version' => $this->version,
-            'previousHash' => null
+            'previousHash' => '0000000000000000000000000000000000000000000000000000000000000000'
         ]);
 
         $this->mine($block);
