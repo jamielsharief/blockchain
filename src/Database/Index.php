@@ -81,7 +81,10 @@ class Index
      */
     public function search(string $hash): ?int
     {
-        // Search the most recent X records first due to recency basis
+        /**
+         * Recency search optimisation. Even without this searching for the furthest
+         * away hash for 2 million blocks takes 0.44 seconds
+         */
         foreach ($this->fs->each($this->path, $this->recentRecords) as $line) {
             if (strpos($line, $hash) !== false) {
                 list($index, $hash) = explode(',', $line);
