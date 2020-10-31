@@ -43,7 +43,7 @@ class TransactionTest extends TestCase
             'amount' => 1234
         ];
         $transaction->data($data);
-        $this->assertEquals($data, $transaction->data);
+        $this->assertEquals($data, $transaction->data());
     }
 
     public function testToJson()
