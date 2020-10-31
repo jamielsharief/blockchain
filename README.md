@@ -187,7 +187,10 @@ $blockchain->validate();
 
 ## Todo
 
-- [ ] I am thinking about if the first set of transactions should define the schema going forward of all future transactions.
+I am thinking the following:
+
+- [ ] If the first set of transactions should define the schema going forward of all future transactions.
+- [ ] maybe an encrypted Blockchain could be interesting for private Blockchains to protect data
 
 ## Resources
 
