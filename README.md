@@ -7,8 +7,8 @@
 A Blockchain database suitable for both private or public blockchains.
 
 - Blocks are stored with transactions as JSON so they are very portable
-- Database has been designed to handle large amounts of Blocks and can be quickly synced across multiple servers
-- Transactions are encoded in a Merkle Tree, and can detect duplicate transactions being submitted in different blocks.
+- Database has been designed to handle large amounts of Blocks and can be quickly synced across multiple servers (if required)
+- Transactions are encoded in a Merkle Tree, any attempt to change the transaction will be detected and duplicate transactions submitted in other blocks can also be detected.
 - Proof of work can be disabled for private blockchains to remove unnecessary and cumbersome calculations
 - It is very fast, you can search for the furthest away hash in the index of 2 million blocks in 0.44 seconds (2012 laptop)
 
