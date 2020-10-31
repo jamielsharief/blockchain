@@ -178,7 +178,7 @@ class Block
     public function toJson(array $options = []): string
     {
         $options += ['pretty' => false];
-        $jsonOptions = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+        $jsonOptions = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK;
         if ($options['pretty']) {
             $jsonOptions |= JSON_PRETTY_PRINT;
         }
