@@ -171,11 +171,19 @@ class Block
     /**
      * Returns the Block as a JSON string
      *
+     * @param array $options The following options keys are supported:
+     *  - pretty: default:false toggle JSON pretty print
      * @return string
      */
-    public function toJson(): string
+    public function toJson(array $options = []): string
     {
-        return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $options += ['pretty' => false];
+        $jsonOptions = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+        if ($options['pretty']) {
+            $jsonOptions |= JSON_PRETTY_PRINT;
+        }
+
+        return json_encode($this->toArray(), $jsonOptions);
     }
 
     /**

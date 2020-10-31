@@ -24,7 +24,8 @@ $lookback = 10;  // set to 0 if you want to speed up generating test Blocks
 // Create the instance
 $blockchain = new Blockchain('demo-coin', $path, [
     'difficulty' => $difficulty,
-    'lookback' => $lookback
+    'lookback' => $lookback,
+    'pretty' => true
 ]);
 
 // Insert Blocks
@@ -48,13 +49,13 @@ for ($i = 0;$i < $blocks;$i++) {
 print("\nLast Block:\n");
 
 $latest = $blockchain->last();
-print($latest->toJson());
+print($latest->toJson(['pretty' => true]));
 
 print("\nGoing through all Blocks..\n");
 
 foreach ($blockchain->all(['reverse' => false]) as $block) {
     print("Block #{$block->index}\n");
-    print($block->toJson() . "\n");
+    print($block->toJson(['pretty' => true]) . "\n");
 }
 
 print("\nThere are {$blockchain->count()} Blocks in the Blockchain\n");

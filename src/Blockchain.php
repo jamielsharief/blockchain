@@ -37,6 +37,8 @@ class Blockchain
      */
     protected bool $exists = false;
 
+    protected bool $pretty;
+
     /**
      * @param string $name the name of the Blockchain lower case letters numbers, dashes.
      * @param string $path Path to the folder where the Blockchain is stored.
@@ -44,10 +46,11 @@ class Blockchain
      *  - difficulty: difficulty level for proof of work, set to 0 to disable
      *  - version: the version number of the Blockchain
      *  - lookback: the number of Blocks to lookback at to see if there are duplicate Transactions.
+     *  - pretty: default:false. Writes Blocks using JSON pretty print
      */
     public function __construct(string $name, string $path, array $options = [])
     {
-        $options += ['difficulty' => 8, 'version' => 1,'lookback' => 25];
+        $options += ['difficulty' => 8, 'version' => 1,'lookback' => 25,'pretty' => false];
 
         if (! preg_match('/^[a-z0-9-]+$/i', $name)) {
             throw new InvalidArgumentException('Invalid Blockchain name');
@@ -63,6 +66,7 @@ class Blockchain
         $this->lookback = $options['lookback'];
 
         $this->exists = is_dir($this->path);
+        $this->pretty = $options['pretty'];
     }
 
     /**
@@ -339,7 +343,7 @@ class Blockchain
     {
         $path = $this->blockPath($block->index);
 
-        if (! $this->fs->write($path, $block->toJson(), true)) {
+        if (! $this->fs->write($path, $block->toJson(['pretty' => $this->pretty]), true)) {
             throw new BlockchainException('Error writing Block');
         }
         $this->index->add($block);
