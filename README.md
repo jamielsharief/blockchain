@@ -185,6 +185,10 @@ To validate the entire `Blockchain`.
 $blockchain->validate();
 ```
 
+## Todo
+
+- [ ] I am thinking about if the first set of transactions should define the schema going forward of all future transactions.
+
 ## Resources
 
 - [Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
