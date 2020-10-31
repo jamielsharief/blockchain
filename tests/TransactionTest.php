@@ -18,14 +18,18 @@ use PHPUnit\Framework\TestCase;
 
 class TransactionTest extends TestCase
 {
-    public function testHash()
+    private function transactionFixture()
     {
-        $transaction = new Transaction([
+        return [
             'date' => '2020-10-29 13:13:59',
             'to' => '5f997ca7272d1',
             'from' => '5f997ca7272d2',
             'amount' => 1234
-        ]) ;
+        ];
+    }
+    public function testHash()
+    {
+        $transaction = new Transaction($this->transactionFixture());
 
         $this->assertEquals('74110b5311ff248a53048ea7c45d21386b12fbf368296cafd2fa7e3362108cde', $transaction->calculateHash());
      
@@ -36,25 +40,33 @@ class TransactionTest extends TestCase
     public function testData()
     {
         $transaction = new Transaction();
-        $data = [
-            'date' => '2020-10-29 13:13:59',
-            'to' => '5f997ca7272d1',
-            'from' => '5f997ca7272d2',
-            'amount' => 1234
-        ];
+        $data = $this->transactionFixture();
         $transaction->data($data);
         $this->assertEquals($data, $transaction->data());
     }
 
     public function testToJson()
     {
-        $transaction = new Transaction([
-            'date' => '2020-10-29 13:13:59',
-            'to' => '5f997ca7272d1',
-            'from' => '5f997ca7272d2',
-            'amount' => 1234
-        ]);
+        $transaction = new Transaction($this->transactionFixture());
         $transaction->hash = $transaction->calculateHash();
         $this->assertEquals('{"hash":"74110b5311ff248a53048ea7c45d21386b12fbf368296cafd2fa7e3362108cde","data":{"date":"2020-10-29 13:13:59","to":"5f997ca7272d1","from":"5f997ca7272d2","amount":1234}}', $transaction->toJson());
+    }
+
+    public function testToJsonPretty()
+    {
+        $transaction = new Transaction($this->transactionFixture());
+        $transaction->hash = $transaction->calculateHash();
+  
+        $this->assertEquals(
+            'e682b7f2710263eeef65f7b4c0eda925', md5($transaction->toJson(['pretty' => true]))
+        );
+    }
+
+    public function testToString()
+    {
+        $transaction = new Transaction($this->transactionFixture());
+        $transaction->hash = $transaction->calculateHash();
+        
+        $this->assertEquals('{"hash":"74110b5311ff248a53048ea7c45d21386b12fbf368296cafd2fa7e3362108cde","data":{"date":"2020-10-29 13:13:59","to":"5f997ca7272d1","from":"5f997ca7272d2","amount":1234}}', (string) $transaction);
     }
 }

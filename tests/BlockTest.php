@@ -126,4 +126,46 @@ class BlockTest extends TestCase
         $copy->transactions[0]->data['amount'] = 5000;
         $this->assertFalse($copy->isValid());
     }
+
+    public function testToJson()
+    {
+        $block = $this->blockFixture();
+        $this->assertEquals(
+            '{"hash":"16e3cb59ed8cd1a0e742cd5526bc8d38c90bb4a3992aa832a53c829c7462b37c","version":1,"previousHash":"0000000000000000000000000000000000000000000000000000000000000000","merkleRoot":"19025cfb2e48ef0b51e60eb2954e76a4b89c9921089c92f391f675f196c65a91","timestamp":1604145600,"difficulty":0,"nonce":0,"index":0,"noTransactions":1,"transactions":[{"hash":"c4bd970c8e32582baabae94714dfb137e93aecb0e11999bc57ce018a401836b7","data":{"date":"2020-10-25 10:55:23","to":"jon","from":"tony","amount":500}}]}',
+            $block->toJson()
+        );
+
+        $this->assertEquals('a83cd0408d37fa89ea901701b9a28c0b', md5($block->toJson(['pretty' => true])));
+    }
+
+    public function testToString()
+    {
+        $block = $this->blockFixture();
+        $this->assertEquals(
+            '{"hash":"16e3cb59ed8cd1a0e742cd5526bc8d38c90bb4a3992aa832a53c829c7462b37c","version":1,"previousHash":"0000000000000000000000000000000000000000000000000000000000000000","merkleRoot":"19025cfb2e48ef0b51e60eb2954e76a4b89c9921089c92f391f675f196c65a91","timestamp":1604145600,"difficulty":0,"nonce":0,"index":0,"noTransactions":1,"transactions":[{"hash":"c4bd970c8e32582baabae94714dfb137e93aecb0e11999bc57ce018a401836b7","data":{"date":"2020-10-25 10:55:23","to":"jon","from":"tony","amount":500}}]}',
+            (string) $block
+        );
+    }
+
+    protected function blockFixture()
+    {
+        $block = new Block();
+        $transaction = new Transaction([
+            'date' => '2020-10-25 10:55:23',
+            'to' => 'jon',
+            'from' => 'tony',
+            'amount' => 500
+        ]);
+        $block->add($transaction);
+
+        $block->index = 0;
+        $block->timestamp = strtotime('2020-10-31 12:00:00');
+        $block->previousHash = '0000000000000000000000000000000000000000000000000000000000000000';
+        $block->difficulty = 0;
+        $block->version = 1;
+        $block->hash = $block->calculateHash();
+        $block->merkleRoot = $block->calculateMerkleRoot();
+      
+        return $block;
+    }
 }

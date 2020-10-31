@@ -89,4 +89,12 @@ class Transaction
 
         return json_encode($this->toArray(), $jsonOptions);
     }
+
+    /**
+    * @return string
+    */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
 }
