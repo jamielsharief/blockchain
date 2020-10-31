@@ -1,6 +1,7 @@
 language: php
 php:
   - 7.4
+  - 'nightly'
 dist: xenial
 before_script:
   - composer install --prefer-source --no-interaction
