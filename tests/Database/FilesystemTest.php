@@ -14,11 +14,26 @@ declare(strict_types = 1);
 namespace Blockchain\Test\Database;
 
 use PHPUnit\Framework\TestCase;
+use Blockchain\Database\Filesystem;
+use Blockchain\Exception\NotFoundException;
 
 class FilesystemTest extends TestCase
 {
-    public function testTail()
+    public function testCheckFileExists()
     {
-        $this->markTestIncomplete();
+        $fs = new Filesystem();
+        $this->expectException(NotFoundException::class);
+        $fs->read('fooz');
+    }
+
+    public function testSearch()
+    {
+        $fs = new Filesystem();
+        $path = dirname(__DIR__, 2) . '/composer.json';
+
+        $this->assertStringContainsString(
+            '"name": "jamielsharief/blockchain"',
+            $fs->search($path, 'jamielsharief/blockchain')
+        );
     }
 }

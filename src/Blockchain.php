@@ -52,7 +52,7 @@ class Blockchain
     {
         $options += ['difficulty' => 8, 'version' => 1,'lookback' => 25,'pretty' => false];
 
-        if (! preg_match('/^[a-z0-9-]+$/i', $name)) {
+        if (! preg_match('/^[a-z0-9-]+$/', $name)) {
             throw new InvalidArgumentException('Invalid Blockchain name');
         }
         $this->name = $name;

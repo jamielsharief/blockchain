@@ -18,9 +18,10 @@ use Blockchain\Exception\BlockchainException;
 
 class Index
 {
-    protected int $recentRecords = 1000;
     protected Filesystem $fs;
     protected string $path;
+    
+    protected int $recentBlocks = 1000;
 
     public function __construct(string $path)
     {
@@ -81,24 +82,50 @@ class Index
      */
     public function search(string $hash): ?int
     {
-        /**
-         * Recency search optimisation. Even without this searching for the furthest
-         * away hash for 2 million blocks takes 0.44 seconds
-         */
-        foreach ($this->fs->each($this->path, $this->recentRecords) as $line) {
-            if (strpos($line, $hash) !== false) {
-                list($index, $hash) = explode(',', $line);
+        if ($this->recentBlocks > 0) {
+            $result = $this->searchRecentBlocks($hash);
 
-                return (int) $index;
+            if ($result !== null) {
+                return $result;
             }
         }
 
-        // search forward
+        return $this->searchForward($hash);
+    }
+
+    /**
+     * Standard search forward, faster than backwards since it is more efficient.
+     *
+     * @param string $hash
+     * @return integer|null
+     */
+    protected function searchForward(string $hash): ? int
+    {
         $line = $this->fs->search($this->path, $hash);
         if ($line) {
             list($index, ) = explode(',', $line);
 
             return (int) $index;
+        }
+
+        return null;
+    }
+
+    /**
+     * Recency search optimisation. Even without this searching for the furthest
+     * away hash for 2 million blocks takes 0.44 seconds
+     *
+     * @param string $hash
+     * @return integer|null
+     */
+    protected function searchRecentBlocks(string $hash): ? int
+    {
+        foreach ($this->fs->each($this->path, $this->recentBlocks) as $line) {
+            if (strpos($line, $hash) !== false) {
+                list($index, $hash) = explode(',', $line);
+
+                return (int) $index;
+            }
         }
 
         return null;

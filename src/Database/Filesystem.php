@@ -14,8 +14,8 @@ declare(strict_types = 1);
 namespace Blockchain\Database;
 
 use Generator;
+use Blockchain\Exception\DatabaseException;
 use Blockchain\Exception\NotFoundException;
-use Blockchain\Exception\BlockchainException;
 
 /**
  * TODO: Add locking to last line etc
@@ -59,7 +59,7 @@ class Filesystem
         defer($void, 'fclose', $fh);
 
         if ($fh === false || ! flock($fh, LOCK_EX)) {
-            throw new BlockchainException('Error opening file');
+            throw new DatabaseException('Error opening file');
         }
 
         return (bool) fputs($fh, $data);
@@ -78,7 +78,7 @@ class Filesystem
         defer($void, 'fclose', $fh);
 
         if ($fh === false || ! flock($fh, LOCK_EX)) {
-            throw new BlockchainException('Error opening file');
+            throw new DatabaseException('Error opening file');
         }
       
         return (bool) fputs($fh, $data);
@@ -160,7 +160,7 @@ class Filesystem
         defer($void, 'fclose', $fh);
 
         if ($fh === false || ! flock($fh, LOCK_SH)) {
-            throw new BlockchainException('Error opening file');
+            throw new DatabaseException('Error opening file');
         }
 
         fseek($fh, -1, SEEK_END);

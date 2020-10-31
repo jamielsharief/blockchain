@@ -13,14 +13,22 @@
 declare(strict_types = 1);
 namespace Blockchain\Test;
 
+use Generator;
 use Blockchain\Block;
 use Blockchain\Blockchain;
 use Blockchain\Transaction;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Blockchain\Exception\NotFoundException;
+use Blockchain\Exception\BlockchainException;
 
 class BlockchainTest extends TestCase
 {
+    public function testInvalidName()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new Blockchain('A', $this->blockchain_path());
+    }
    
     /**
      * Create a Blockchain with the Genesis Block
@@ -76,6 +84,70 @@ class BlockchainTest extends TestCase
         $this->addBlocks(1, $blockchain);
         $lastBlock = $blockchain->get(1);
         $this->assertEquals(1, $lastBlock->index);
+    }
+
+    public function testGetDoesNotExist()
+    {
+        $blockchain = $this->createBlockchain();
+        $this->expectException(NotFoundException::class);
+        $blockchain->get(123);
+    }
+
+    public function testGetInvalidBlock()
+    {
+        $blockchain = $this->createBlockchain(5);
+        $path = $this->blockchain_path('php-coin') . '/0/1.json';
+        $block = json_decode(file_get_contents($path), true);
+        $block['timestamp'] = strtotime('+ 1 day');
+        file_put_contents($path, json_encode($block));
+        $this->expectException(BlockchainException::class);
+        $blockchain->get(1);
+    }
+
+    public function testAll()
+    {
+        $blockchain = $this->createBlockchain(5);
+        $result = $this->generatorToArray($blockchain->all());
+        $this->assertCount(6, $result);
+        $this->assertEquals(5, key($result));
+        $this->assertInstanceOf(Block::class, $result[0]);
+
+        $result = $this->generatorToArray($blockchain->all(['reverse' => false]));
+        $this->assertEquals(0, key($result));
+    }
+
+    public function testAllInvalidArgs1()
+    {
+        $blockchain = $this->createBlockchain(5);
+        $generator = $blockchain->all(['start' => -1]);
+        $this->expectException(InvalidArgumentException::class);
+        $this->generatorToArray($generator);
+    }
+
+    public function testAllInvalidArgs2()
+    {
+        $blockchain = $this->createBlockchain(5);
+        $generator = $blockchain->all(['finish' => 1025]);
+        $this->expectException(InvalidArgumentException::class);
+        $this->generatorToArray($generator);
+    }
+
+    public function testAllInvalidArgs3()
+    {
+        $blockchain = $this->createBlockchain(5);
+        $generator = $blockchain->all(['start' => 1,'finish' => 1]);
+        $this->expectException(InvalidArgumentException::class);
+        $this->generatorToArray($generator);
+    }
+
+    private function generatorToArray(Generator $generator)
+    {
+        $out = [];
+        foreach ($generator as $item) {
+            $out[$item->index] = $item;
+        }
+
+        return $out;
     }
 
     /**
@@ -290,7 +362,6 @@ class BlockchainTest extends TestCase
     protected function createBlockchain(int $blocks = 0): Blockchain
     {
         $blockchain = new Blockchain('php-coin', $this->blockchain_path(), [
-   
             'difficulty' => 0
         ]);
 

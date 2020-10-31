@@ -13,8 +13,10 @@
 declare(strict_types = 1);
 namespace Blockchain\Test\Cryptography;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Blockchain\Cryptography\MerkleRoot;
+
 use function Blockchain\Cryptography\dhash;
 
 /**
@@ -95,5 +97,11 @@ class MerkleRootTest extends TestCase
         $expected = dhash(dhash($p1.$p2) . dhash($p3.$p4));
 
         $this->assertEquals($expected, $merkleRoot);
+    }
+
+    public function testNoHashes()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        ( new MerkleRoot())->calculate([]);
     }
 }

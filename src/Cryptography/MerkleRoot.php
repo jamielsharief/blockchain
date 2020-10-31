@@ -29,6 +29,10 @@ class MerkleRoot
      */
     public function calculate(array $hashList): string
     {
+        if (empty($hashList)) {
+            throw new InvalidArgumentException('Hashlist is empty');
+        }
+        
         $pairedHashes = $this->pairHashes($hashList);
 
         while (count($pairedHashes) > 1) {
@@ -45,9 +49,6 @@ class MerkleRoot
      */
     protected function pairHashes(array $hashList): array
     {
-        if (empty($hashList)) {
-            throw new InvalidArgumentException('Hashlist is empty');
-        }
 
         //  If the number of hashes is uneven then use last element to make even
         if (count($hashList) % 2 !== 0) {
