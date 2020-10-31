@@ -41,14 +41,14 @@ class Blockchain
 
     /**
      * @param string $name the name of the Blockchain lower case letters numbers, dashes.
-     * @param string $path Path to the folder where the Blockchain is stored.
+     * @param string $directory Directory of where Blockchains are stored
      * @param array $options The following options keys are supported
      *  - difficulty: difficulty level for proof of work, set to 0 to disable
      *  - version: the version number of the Blockchain
      *  - lookback: the number of Blocks to lookback at to see if there are duplicate Transactions.
      *  - pretty: default:false. Writes Blocks using JSON pretty print
      */
-    public function __construct(string $name, string $path, array $options = [])
+    public function __construct(string $name, string $directory, array $options = [])
     {
         $options += ['difficulty' => 8, 'version' => 1,'lookback' => 25,'pretty' => false];
 
@@ -56,7 +56,7 @@ class Blockchain
             throw new InvalidArgumentException('Invalid Blockchain name');
         }
         $this->name = $name;
-        $this->path = $path . '/' . $name;
+        $this->path = $directory . '/' . $name;
 
         $this->fs = new Filesystem();
         $this->index = new Index($this->path);
