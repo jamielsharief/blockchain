@@ -36,7 +36,7 @@ $ php demo.php
 To create a `Blockchain` instance, provide a path to where data for that Blockchain will be stored.
 
 ```php
-$blockchain = new Blockchain('customer-payments',__DIR__ . '/data/payments', [
+$blockchain = new Blockchain('customer-payments', __DIR__ . '/data/blockchains', [
     'difficulty' => 4, // set to 0 to disable proof of work
     'lookback' => 10, // number of Blocks to look back for duplicate transactions
     'version' => 1
