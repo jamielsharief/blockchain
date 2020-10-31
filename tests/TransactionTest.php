@@ -32,4 +32,29 @@ class TransactionTest extends TestCase
         $transaction->data['amount'] = 4567;
         $this->assertEquals('ea578a34b6edf697d572c840d5ca67f8c2834a63ca1a1aac3c12944c19a32aee', $transaction->calculateHash());
     }
+
+    public function testData()
+    {
+        $transaction = new Transaction();
+        $data = [
+            'date' => '2020-10-29 13:13:59',
+            'to' => '5f997ca7272d1',
+            'from' => '5f997ca7272d2',
+            'amount' => 1234
+        ];
+        $transaction->data($data);
+        $this->assertEquals($data, $transaction->data);
+    }
+
+    public function testToJson()
+    {
+        $transaction = new Transaction([
+            'date' => '2020-10-29 13:13:59',
+            'to' => '5f997ca7272d1',
+            'from' => '5f997ca7272d2',
+            'amount' => 1234
+        ]);
+        $transaction->hash = $transaction->calculateHash();
+        $this->assertEquals('{"hash":"74110b5311ff248a53048ea7c45d21386b12fbf368296cafd2fa7e3362108cde","data":{"date":"2020-10-29 13:13:59","to":"5f997ca7272d1","from":"5f997ca7272d2","amount":1234}}', $transaction->toJson());
+    }
 }

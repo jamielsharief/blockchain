@@ -145,45 +145,6 @@ class Filesystem
     }
 
     /**
-     * Returns the last x lines of a file
-     *
-     * // TODO: This might not be needed in end, however rigorous performance testing
-     * needs to be done first before removing.
-     *
-     * @param string $path
-     * @param integer $lines
-     * @param integer $buffer
-     * @return string
-     */
-    public function tail(string $path, int $lines, int $buffer = 100): string
-    {
-        $this->checkFileExists($path);
-       
-        $fh = fopen($path, 'r');
-        defer($void, 'fclose', $fh);
-
-        fseek($fh, -1, SEEK_END);
-        $pos = ftell($fh);
-
-        $output = '';
-        while ($lines > 0) {
-            $pos -= $buffer;
-            if ($pos < 0) {
-                $pos = 0;
-            }
-            fseek($fh, $pos);
-
-            $line = fread($fh, $buffer);
-            $output = $line . $output;
-
-            $lines -= substr_count($line, "\n");
-        }
-        fclose($fh);
-
-        return substr($output, strpos($output, "\n") + 1);
-    }
-
-    /**
      * Yeilds a line of a file in reverse order
      *
      * @param string $path
