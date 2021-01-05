@@ -1,7 +1,7 @@
 # Blockchain (beta)
 
 ![license](https://img.shields.io/badge/license-MIT-brightGreen.svg)
-[![build status](https://travis-ci.org/jamielsharief/blockchain.svg?branch=main)](https://travis-ci.org/jamielsharief/blockchain)
+[![build](https://github.com/jamielsharief/blockchain/workflows/CI/badge.svg)](https://github.com/jamielsharief/blockchain/actions)
 [![coverage status](https://coveralls.io/repos/github/jamielsharief/blockchain/badge.svg?branch=main)](https://coveralls.io/github/jamielsharief/blockchain?branch=main)
 
 A Blockchain database suitable for both private or public blockchains.
