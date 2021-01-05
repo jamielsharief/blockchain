@@ -112,7 +112,7 @@ class BlockchainTest extends TestCase
         $this->assertEquals(5, key($result));
         $this->assertInstanceOf(Block::class, $result[0]);
 
-        $result = $this->generatorToArray($blockchain->all(['reverse' => false]));
+        $result = iterator_to_array($blockchain->all(['reverse' => false]));
         $this->assertEquals(0, key($result));
     }
 
@@ -121,7 +121,7 @@ class BlockchainTest extends TestCase
         $blockchain = $this->createBlockchain(5);
         $generator = $blockchain->all(['start' => -1]);
         $this->expectException(InvalidArgumentException::class);
-        $this->generatorToArray($generator);
+        iterator_to_array($generator);
     }
 
     public function testAllInvalidArgs2()
@@ -129,7 +129,7 @@ class BlockchainTest extends TestCase
         $blockchain = $this->createBlockchain(5);
         $generator = $blockchain->all(['finish' => 1025]);
         $this->expectException(InvalidArgumentException::class);
-        $this->generatorToArray($generator);
+        iterator_to_array($generator);
     }
 
     public function testAllInvalidArgs3()
@@ -137,10 +137,16 @@ class BlockchainTest extends TestCase
         $blockchain = $this->createBlockchain(5);
         $generator = $blockchain->all(['start' => 1,'finish' => 1]);
         $this->expectException(InvalidArgumentException::class);
-        $this->generatorToArray($generator);
+        iterator_to_array($generator);
     }
 
-    private function generatorToArray(Generator $generator)
+    /**
+     * @internal preserve index number
+     *
+     * @param Generator $generator
+     * @return array
+     */
+    private function generatorToArray(Generator $generator): array
     {
         $out = [];
         foreach ($generator as $item) {
