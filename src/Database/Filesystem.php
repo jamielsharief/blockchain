@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Blockchain\Database;
 
 use Generator;
+use function Origin\Defer\defer;
 use Blockchain\Exception\DatabaseException;
 use Blockchain\Exception\NotFoundException;
 
